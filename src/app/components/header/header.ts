@@ -7,6 +7,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SavedService } from '../../services/saved.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -33,4 +34,7 @@ export class Header {
 
   // The shared saved list. The header only reads the count from it.
   protected readonly saved = inject(SavedService);
+
+  // Who is signed in. The template switches Student login / My Profile on it.
+  protected readonly auth = inject(AuthService);
 }

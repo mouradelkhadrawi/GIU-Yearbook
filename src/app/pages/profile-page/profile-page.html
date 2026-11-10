@@ -1,0 +1,100 @@
+<!-- FILE: pages/profile-page/profile-page.html  (STARTER: fill the gaps marked STEP 12a to 12f)
+     It matches the Figma frame "My Profile · Student editor". -->
+
+<!-- Page introduction -->
+<section class="intro">
+  <div class="intro__text">
+    <p class="overline">YOUR YEARBOOK / MY PROFILE</p>
+    <h1 class="intro__title">Make this page yours.</h1>
+    <p class="intro__desc">
+      A photo, a few words, a little of who you are. This is how your classmates will remember you.
+    </p>
+  </div>
+  <p class="intro__signed">
+    SIGNED IN AS<br />
+    {{ user()?.name }}
+  </p>
+</section>
+
+@if (student(); as s) {
+  <div class="columns">
+    <form class="card">  <!-- STEP 12a: connect the form to `form` (see the manual) -->
+      <div class="identity">
+        <div>
+          <p class="identity__name">{{ s.name }}</p>
+          <p class="identity__meta">{{ s.faculty }} · Class of {{ s.classYear }}</p>
+        </div>
+        <span class="tag tag--draft">Draft · Not published</span>
+      </div>
+
+      <!-- Photo (the upload itself is an optional challenge) -->
+      <div class="group">
+        <p class="label">Your yearbook photo</p>
+        <div class="photo">
+          <img class="photo__current" [src]="s.photo" [alt]="'Current portrait of ' + s.name" />
+          <label class="photo__drop">
+            <input type="file" accept="image/png, image/jpeg" class="visually-hidden" />
+            <img src="icons/upload.svg" alt="" aria-hidden="true" />
+            <span class="photo__prompt">Choose a photo or drag it here</span>
+            <span class="photo__hint">JPG or PNG · Up to 5 MB · Portrait recommended</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- STEP 12b: the quote field goes here -->
+
+      <!-- STEP 12c: the story field goes here -->
+
+      <!-- Moment + next, side by side -->
+      <div class="pair">
+        <div class="group">
+          <label class="label" for="moment">A moment to keep</label>
+          <textarea id="moment" class="control control--small" formControlName="moment"></textarea>
+        </div>
+        <div class="group">
+          <label class="label" for="next">What’s next?</label>
+          <textarea id="next" class="control control--small" formControlName="next"></textarea>
+        </div>
+      </div>
+
+      <!-- STEP 12d: the consent checkbox goes here -->
+
+      <!-- STEP 12e: the save row (status line and buttons) goes here -->
+    </form>
+
+    <!-- Live preview -->
+    <aside class="preview">
+      <div class="preview__heading">
+        <p class="preview__title">Your directory card</p>
+        <span class="tag">PREVIEW</span>
+      </div>
+
+      <article class="mini">
+        <img class="mini__photo" [src]="s.photo" [alt]="'Portrait of ' + s.name" />
+        <div class="mini__body">
+          <p class="mini__name">
+            {{ s.name }}
+            <img src="icons/arrow-up-right.svg" alt="" aria-hidden="true" />
+          </p>
+          <p class="mini__meta">{{ s.faculty }} · Class of {{ s.classYear }}</p>
+          <!-- STEP 12f: the quote in the preview goes here -->
+        </div>
+      </article>
+
+      <p class="preview__note">
+        Your full story opens when a classmate selects your card. Changes appear in the yearbook
+        once you publish.
+      </p>
+
+      <div class="guidance">
+        <img src="icons/sparkles.svg" alt="" aria-hidden="true" />
+        <p class="guidance__title">Keep it authentically you.</p>
+        <p>Choose a clear, recent photo.<br />Share a memory that makes you smile.<br />Give a little glimpse of what’s next.</p>
+      </div>
+
+      <button type="button" class="signout" (click)="signOut()">Sign out of your account ↗</button>
+    </aside>
+  </div>
+} @else {
+  <p class="status" role="status">Loading your profile…</p>
+}
